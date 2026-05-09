@@ -129,7 +129,7 @@ export function useAppState() {
   const selectRecord = useCallback(
     (id: string | null) => {
       setState((prev) => {
-        const next = { ...prev, selectedRecordId: id, screen: id ? 'record-detail' : 'operations' };
+        const next: AppState = { ...prev, selectedRecordId: id, screen: id ? 'record-detail' : 'operations' };
         persist(next);
         return next;
       });
@@ -146,7 +146,7 @@ export function useAppState() {
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
-        const next = { ...prev, records: [newRecord, ...prev.records], screen: 'operations' as ScreenName };
+        const next: AppState = { ...prev, records: [newRecord, ...prev.records], screen: 'operations' };
         persist(next);
         return next;
       });
@@ -160,7 +160,7 @@ export function useAppState() {
         const nextRecords = prev.records.map((r) =>
           r.id === id ? { ...r, ...updates, updatedAt: new Date().toISOString() } : r
         );
-        const next = { ...prev, records: nextRecords, screen: 'operations' as ScreenName };
+        const next: AppState = { ...prev, records: nextRecords, screen: 'operations' };
         persist(next);
         return next;
       });
@@ -171,11 +171,11 @@ export function useAppState() {
   const deleteRecord = useCallback(
     (id: string) => {
       setState((prev) => {
-        const next = {
+        const next: AppState = {
           ...prev,
           records: prev.records.filter((r) => r.id !== id),
           selectedRecordId: prev.selectedRecordId === id ? null : prev.selectedRecordId,
-          screen: 'operations' as ScreenName,
+          screen: 'operations',
         };
         persist(next);
         return next;
@@ -217,7 +217,7 @@ export function useAppState() {
 
   const resetStorage = useCallback(() => {
     const result = clearAllStorage();
-    const next = { ...DEFAULT_STATE, screen: 'error' as ScreenName, storageError: result.error ?? null };
+    const next: AppState = { ...DEFAULT_STATE, screen: 'error', storageError: result.error ?? null };
     setState(next);
   }, []);
 
