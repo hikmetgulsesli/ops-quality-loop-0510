@@ -1,7 +1,7 @@
 import { createContext, useContext, ReactNode } from 'react';
 import { AppState, ScreenName, AppRecord, AppSettings, AppProfile } from '../types/domain';
 
-interface AppContextValue {
+export interface AppContextValue {
   state: AppState;
   setScreen: (screen: ScreenName) => void;
   setSearchQuery: (query: string) => void;
