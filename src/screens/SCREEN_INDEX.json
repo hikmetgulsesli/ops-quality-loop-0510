@@ -1,0 +1,74 @@
+[
+  {
+    "screenId": "c0f27ac1cdb64104bb13e9a919de13da",
+    "title": "Profile Panel",
+    "componentName": "ProfilePanel",
+    "file": "src/screens/ProfilePanel.tsx",
+    "buttons": 4,
+    "inputs": 0,
+    "links": 5
+  },
+  {
+    "screenId": "77ef27e02c094600bce63a04ba9fb633",
+    "title": "Create/Edit Form",
+    "componentName": "CreateeditForm",
+    "file": "src/screens/CreateeditForm.tsx",
+    "buttons": 3,
+    "inputs": 1,
+    "links": 0
+  },
+  {
+    "screenId": "b4659abf72374475aada66ced248f52f",
+    "title": "Record Detail",
+    "componentName": "RecordDetail",
+    "file": "src/screens/RecordDetail.tsx",
+    "buttons": 6,
+    "inputs": 0,
+    "links": 6
+  },
+  {
+    "screenId": "5a4fb62976e54d5fa2bb6d22d2d9317b",
+    "title": "Insights Dashboard",
+    "componentName": "InsightsDashboard",
+    "file": "src/screens/InsightsDashboard.tsx",
+    "buttons": 3,
+    "inputs": 0,
+    "links": 5
+  },
+  {
+    "screenId": "575ce6333ae7404080ecb8dd3bfb1345",
+    "title": "Dashboard",
+    "componentName": "Dashboard",
+    "file": "src/screens/Dashboard.tsx",
+    "buttons": 12,
+    "inputs": 1,
+    "links": 5
+  },
+  {
+    "screenId": "8c7380f0cc6343f4b6ecaf7e296953f0",
+    "title": "Settings",
+    "componentName": "Settings",
+    "file": "src/screens/Settings.tsx",
+    "buttons": 11,
+    "inputs": 2,
+    "links": 5
+  },
+  {
+    "screenId": "2cddc401494c47c18e294276abda1a51",
+    "title": "Empty State",
+    "componentName": "EmptyState",
+    "file": "src/screens/EmptyState.tsx",
+    "buttons": 1,
+    "inputs": 0,
+    "links": 2
+  },
+  {
+    "screenId": "ca20cd97ed35464a960911d1942f89ed",
+    "title": "Error State",
+    "componentName": "ErrorState",
+    "file": "src/screens/ErrorState.tsx",
+    "buttons": 4,
+    "inputs": 0,
+    "links": 7
+  }
+]
