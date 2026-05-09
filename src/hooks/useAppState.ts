@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { AppState, AppRecord, ScreenName, AppSettings, AppProfile } from '../types/domain';
-import { saveAppState, loadAppState } from '../utils/storage';
+import { saveAppState, loadAppState, clearAllStorage } from '../utils/storage';
 
 const DEFAULT_RECORDS: AppRecord[] = [
   {
@@ -216,9 +216,10 @@ export function useAppState() {
   }, [state]);
 
   const resetStorage = useCallback(() => {
-    const next = { ...DEFAULT_STATE, screen: 'error' as ScreenName };
-    persist(next);
-  }, [persist]);
+    const result = clearAllStorage();
+    const next = { ...DEFAULT_STATE, screen: 'error' as ScreenName, storageError: result.error ?? null };
+    setState(next);
+  }, []);
 
   return {
     state,
