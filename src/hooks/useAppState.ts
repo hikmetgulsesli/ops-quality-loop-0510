@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { AppState, AppRecord, ScreenName, AppSettings, AppProfile } from '../types/domain';
 import { saveAppState, loadAppState, clearAllStorage } from '../utils/storage';
 
+let idCounter = 8024;
+function generateId(): string {
+  idCounter += 1;
+  return `REQ-${idCounter}`;
+}
+
 const DEFAULT_RECORDS: AppRecord[] = [
   {
     id: 'REQ-8023',
@@ -132,7 +138,7 @@ export function useAppState() {
     setState((prev) => {
       const newRecord: AppRecord = {
         ...record,
-        id: `REQ-${8000 + prev.records.length + 1}`,
+        id: generateId(),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
@@ -193,8 +199,12 @@ export function useAppState() {
 
   const resetStorage = () => {
     const result = clearAllStorage();
-    const next: AppState = { ...DEFAULT_STATE, screen: 'error', storageError: result.error ?? null };
-    setState(next);
+    if (result.error) {
+      setState((prev) => ({ ...prev, storageError: result.error ?? null }));
+      return;
+    }
+    // Reset to defaults and go to dashboard (not error screen)
+    setState({ ...DEFAULT_STATE, screen: 'dashboard' });
   };
 
   return {

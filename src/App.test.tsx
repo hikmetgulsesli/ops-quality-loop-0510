@@ -118,7 +118,7 @@ describe('Settings & Persistence', () => {
     render(<App />);
     fireEvent.click(screen.getByLabelText('Settings'));
     
-    const emailToggle = screen.getByText('Email Notifications').closest('div')?.parentElement?.querySelector('button[role="switch"]');
+    const emailToggle = screen.getByRole('switch', { name: /email notifications/i });
     if (emailToggle) fireEvent.click(emailToggle);
     
     expect(screen.getByText('Application Settings')).toBeInTheDocument();
@@ -146,7 +146,7 @@ describe('Settings & Persistence', () => {
     fireEvent.click(screen.getByLabelText('Settings'));
     
     // Trigger a state change that tries to persist
-    const pushToggle = screen.getByText('Push Notifications').closest('div')?.parentElement?.querySelector('button[role="switch"]');
+    const pushToggle = screen.getByRole('switch', { name: /push notifications/i });
     if (pushToggle) fireEvent.click(pushToggle);
     
     expect(screen.getByText(/Storage error/)).toBeInTheDocument();
@@ -165,7 +165,7 @@ describe('Profile Panel', () => {
     render(<App />);
     fireEvent.click(screen.getByLabelText('Profile'));
     
-    const betaToggle = screen.getByText('Beta Features').closest('div')?.parentElement?.querySelector('button');
+    const betaToggle = screen.getByRole('switch', { name: /beta features/i });
     if (betaToggle) fireEvent.click(betaToggle);
     
     expect(screen.getByText('Account Preferences')).toBeInTheDocument();
