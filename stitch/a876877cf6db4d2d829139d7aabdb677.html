@@ -1,0 +1,32 @@
+# ops-quality-loop-0510 PRD
+
+## Overview
+ops-quality-loop-0510 turns the user's request into a directly usable application. The first screen is not a landing page; it is the real workflow surface where the user can inspect data, take actions, and recover from empty or error states. User-facing copy language: English.
+
+## Goals
+- Provide a working first-load experience with populated, empty, loading, and error states.
+- Ensure every visible button and icon button triggers a real route, state change, panel, modal, or form behavior.
+- Avoid text overflow, incoherent overlap, dead controls, and broken back navigation on mobile and desktop.
+- Persist data through localStorage or the chosen data layer with visible error, retry, and reset behavior.
+
+## Functional Requirements
+- R1: Deliver a working product surface where the first screen is the actual application workflow.
+- Forms provide required-field validation and visible error messages.
+- Filtering, search, create, edit, delete, profile, settings, retry, and clear actions produce visible state changes.
+
+## UI/UX Requirements
+- User-facing language: English.
+- Aesthetic: corporate/minimal, quiet, scannable, and appropriate for repeated product use.
+- Palette: Primary #2563EB, Secondary #475569, Background #F8FAFC, Surface #FFFFFF, Text #0F172A, Border #E2E8F0, Success #16A34A, Error #DC2626, Warning #D97706.
+- Typography: Inter or system sans; compact panels use small but readable headings.
+- Components: cards at 8px radius or less, clear focus rings.
+
+## Screens
+1. Dashboard: Primary data, filters, and actions.
+2. Create/Edit: CRUD form with validation.
+3. Detail: Selected record summary.
+4. Insights: Summary metrics.
+5. Settings: Preferences and state controls.
+6. Profile: Account details and toggles.
+7. Error State: Retry and clear actions.
+8. Empty State: Guidance for first action.
