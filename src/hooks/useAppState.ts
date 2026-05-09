@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { AppState, AppRecord, ScreenName, AppSettings, AppProfile } from '../types/domain';
 import { saveAppState, loadAppState, clearAllStorage } from '../utils/storage';
 
@@ -99,127 +99,103 @@ export function useAppState() {
     return DEFAULT_STATE;
   });
 
-  const persist = useCallback((next: AppState) => {
+  const persist = (next: AppState) => {
     const result = saveAppState(next);
     setState({ ...next, storageError: result.error ?? null });
-  }, []);
+  };
 
-  const setScreen = useCallback(
-    (screen: ScreenName) => {
-      setState((prev) => {
-        const next = { ...prev, screen };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const setScreen = (screen: ScreenName) => {
+    setState((prev) => {
+      const next = { ...prev, screen };
+      persist(next);
+      return next;
+    });
+  };
 
-  const setSearchQuery = useCallback(
-    (searchQuery: string) => {
-      setState((prev) => {
-        const next = { ...prev, searchQuery };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const setSearchQuery = (searchQuery: string) => {
+    setState((prev) => {
+      const next = { ...prev, searchQuery };
+      persist(next);
+      return next;
+    });
+  };
 
-  const selectRecord = useCallback(
-    (id: string | null) => {
-      setState((prev) => {
-        const next: AppState = { ...prev, selectedRecordId: id, screen: id ? 'record-detail' : 'operations' };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const selectRecord = (id: string | null) => {
+    setState((prev) => {
+      const next: AppState = { ...prev, selectedRecordId: id, screen: id ? 'record-detail' : 'operations' };
+      persist(next);
+      return next;
+    });
+  };
 
-  const createRecord = useCallback(
-    (record: Omit<AppRecord, 'id' | 'createdAt' | 'updatedAt'>) => {
-      setState((prev) => {
-        const newRecord: AppRecord = {
-          ...record,
-          id: `REQ-${8000 + prev.records.length + 1}`,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-        const next: AppState = { ...prev, records: [newRecord, ...prev.records], screen: 'operations' };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const createRecord = (record: Omit<AppRecord, 'id' | 'createdAt' | 'updatedAt'>) => {
+    setState((prev) => {
+      const newRecord: AppRecord = {
+        ...record,
+        id: `REQ-${8000 + prev.records.length + 1}`,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      const next: AppState = { ...prev, records: [newRecord, ...prev.records], screen: 'operations' };
+      persist(next);
+      return next;
+    });
+  };
 
-  const updateRecord = useCallback(
-    (id: string, updates: Partial<AppRecord>) => {
-      setState((prev) => {
-        const nextRecords = prev.records.map((r) =>
-          r.id === id ? { ...r, ...updates, updatedAt: new Date().toISOString() } : r
-        );
-        const next: AppState = { ...prev, records: nextRecords, screen: 'operations' };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const updateRecord = (id: string, updates: Partial<AppRecord>) => {
+    setState((prev) => {
+      const nextRecords = prev.records.map((r) =>
+        r.id === id ? { ...r, ...updates, updatedAt: new Date().toISOString() } : r
+      );
+      const next: AppState = { ...prev, records: nextRecords, screen: 'operations' };
+      persist(next);
+      return next;
+    });
+  };
 
-  const deleteRecord = useCallback(
-    (id: string) => {
-      setState((prev) => {
-        const next: AppState = {
-          ...prev,
-          records: prev.records.filter((r) => r.id !== id),
-          selectedRecordId: prev.selectedRecordId === id ? null : prev.selectedRecordId,
-          screen: 'operations',
-        };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const deleteRecord = (id: string) => {
+    setState((prev) => {
+      const next: AppState = {
+        ...prev,
+        records: prev.records.filter((r) => r.id !== id),
+        selectedRecordId: prev.selectedRecordId === id ? null : prev.selectedRecordId,
+        screen: 'operations',
+      };
+      persist(next);
+      return next;
+    });
+  };
 
-  const updateSettings = useCallback(
-    (settings: Partial<AppSettings>) => {
-      setState((prev) => {
-        const next = { ...prev, settings: { ...prev.settings, ...settings } };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const updateSettings = (settings: Partial<AppSettings>) => {
+    setState((prev) => {
+      const next = { ...prev, settings: { ...prev.settings, ...settings } };
+      persist(next);
+      return next;
+    });
+  };
 
-  const updateProfile = useCallback(
-    (profile: Partial<AppProfile>) => {
-      setState((prev) => {
-        const next = { ...prev, profile: { ...prev.profile, ...profile } };
-        persist(next);
-        return next;
-      });
-    },
-    [persist]
-  );
+  const updateProfile = (profile: Partial<AppProfile>) => {
+    setState((prev) => {
+      const next = { ...prev, profile: { ...prev.profile, ...profile } };
+      persist(next);
+      return next;
+    });
+  };
 
-  const clearStorageError = useCallback(() => {
+  const clearStorageError = () => {
     setState((prev) => ({ ...prev, storageError: null }));
-  }, []);
+  };
 
-  const retryStorage = useCallback(() => {
+  const retryStorage = () => {
     const result = saveAppState(state);
     setState((prev) => ({ ...prev, storageError: result.error ?? null }));
-  }, [state]);
+  };
 
-  const resetStorage = useCallback(() => {
+  const resetStorage = () => {
     const result = clearAllStorage();
     const next: AppState = { ...DEFAULT_STATE, screen: 'error', storageError: result.error ?? null };
     setState(next);
-  }, []);
+  };
 
   return {
     state,
